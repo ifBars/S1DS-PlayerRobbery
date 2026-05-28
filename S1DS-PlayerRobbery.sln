@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S1DS-PlayerRobbery", "S1DS-PlayerRobbery.csproj", "{C7D57D66-4F55-4E96-BE78-9BA3626D3A01}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Mono_Client|Any CPU = Mono_Client|Any CPU
+		Mono_Server|Any CPU = Mono_Server|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7D57D66-4F55-4E96-BE78-9BA3626D3A01}.Mono_Client|Any CPU.ActiveCfg = Mono_Client|Any CPU
+		{C7D57D66-4F55-4E96-BE78-9BA3626D3A01}.Mono_Client|Any CPU.Build.0 = Mono_Client|Any CPU
+		{C7D57D66-4F55-4E96-BE78-9BA3626D3A01}.Mono_Server|Any CPU.ActiveCfg = Mono_Server|Any CPU
+		{C7D57D66-4F55-4E96-BE78-9BA3626D3A01}.Mono_Server|Any CPU.Build.0 = Mono_Server|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A57BEBE5-D6BD-4DB6-82F7-497722CA8837}
+	EndGlobalSection
+EndGlobal

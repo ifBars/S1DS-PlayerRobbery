@@ -1,0 +1,25 @@
+# User-specific build configuration
+local.build.props
+
+# Build outputs
+bin/
+obj/
+
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.DotSettings.user
+
+# Local release artifacts
+*.zip
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+
+# OS
+.DS_Store
+Thumbs.db

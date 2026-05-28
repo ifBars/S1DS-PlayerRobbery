@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  S1DS-PlayerRobbery local build configuration.
+
+  Copy this file to local.build.props and fill in your local paths.
+  local.build.props is git-ignored and should not be committed.
+-->
+<Project>
+  <PropertyGroup>
+    <!-- Path to a built DedicatedServerMod bin directory. -->
+    <S1DSApiPath>/path/to/DedicatedServerMod/bin</S1DSApiPath>
+
+    <!-- Schedule I client and dedicated server install paths. -->
+    <MonoClientGamePath>/path/to/Schedule I</MonoClientGamePath>
+    <MonoServerGamePath>/path/to/Schedule I</MonoServerGamePath>
+
+    <!-- Optional deployment destinations. Defaults to each install's Mods folder. -->
+    <!-- <ClientDeploymentPath>/path/to/client/Mods</ClientDeploymentPath> -->
+    <!-- <ServerDeploymentPath>/path/to/server/Mods</ServerDeploymentPath> -->
+  </PropertyGroup>
+</Project>
