@@ -20,6 +20,27 @@ dotnet build S1DS-PlayerRobbery.csproj -c Mono_Server
 
 Build output lands in `bin/Mono_Client/netstandard2.1/` and `bin/Mono_Server/netstandard2.1/`. If deployment paths are configured, the DLL is also copied to the matching `Mods` folder.
 
+## Test
+
+```bash
+dotnet run --project tests/S1DSPlayerRobbery.Tests/S1DSPlayerRobbery.Tests.csproj
+```
+
+The test harness validates shared message contracts and release metadata without launching the game. Runtime validation should still use a dedicated server plus client install because robbery behavior depends on live player state, inventory, and the native pickpocket screen.
+
+For the release gate, run:
+
+```powershell
+./tests/Run-ReleaseValidation.ps1
+```
+
+## Source Layout
+
+- `Client/`: client companion mod, interaction hook, and native pickpocket UI adapter
+- `Server/`: server-authoritative robbery validation, session state, and inventory transfer
+- `Shared/`: metadata and custom-message DTOs shared by both sides
+- `tests/`: pure contract tests for release validation
+
 ## Setup
 
 1. Build or install DedicatedServerMod for both client and server.
@@ -35,4 +56,5 @@ When this project is kept next to the `DedicatedServerMod` checkout under the Sc
 
 - This is a companion addon: the server assembly declares the required client companion metadata.
 - The addon currently targets Mono client/server builds.
+- Robbery transfer is server-authoritative; the client only presents interaction and inventory UI.
 - `local.build.props`, `bin/`, `obj/`, and IDE files are intentionally ignored.

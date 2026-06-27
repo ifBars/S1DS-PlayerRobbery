@@ -48,13 +48,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="AddonMetadata.cs" />
-    <Compile Include="RobberyShared.cs" />
+    <Compile Include="Shared\AddonMetadata.cs" />
+    <Compile Include="Shared\RobberyShared.cs" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Mono_Client'">
-    <Compile Include="S1DSPlayerRobberyClientMod.cs" />
-    <Compile Include="S1DSPlayerRobberyClientMod.PickpocketUi.cs" />
+    <Compile Include="Client\S1DSPlayerRobberyClientMod.cs" />
+    <Compile Include="Client\S1DSPlayerRobberyClientMod.PickpocketUi.cs" />
     <Reference Include="MelonLoader">
       <HintPath>$(MelonLoaderPath)\MelonLoader.dll</HintPath>
     </Reference>
@@ -91,7 +91,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Mono_Server'">
-    <Compile Include="S1DSPlayerRobberyServerMod.cs" />
+    <Compile Include="Server\S1DSPlayerRobberyServerMod.cs" />
     <Reference Include="MelonLoader">
       <HintPath>$(MelonLoaderPath)\MelonLoader.dll</HintPath>
     </Reference>
