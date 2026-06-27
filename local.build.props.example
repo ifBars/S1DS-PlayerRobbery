@@ -13,6 +13,8 @@
     <!-- Schedule I client and dedicated server install paths. -->
     <MonoClientGamePath>/path/to/Schedule I</MonoClientGamePath>
     <MonoServerGamePath>/path/to/Schedule I</MonoServerGamePath>
+    <Il2cppClientGamePath>/path/to/Schedule I</Il2cppClientGamePath>
+    <Il2cppServerGamePath>/path/to/Schedule I</Il2cppServerGamePath>
 
     <!-- Optional deployment destinations. Defaults to each install's Mods folder. -->
     <!-- <ClientDeploymentPath>/path/to/client/Mods</ClientDeploymentPath> -->

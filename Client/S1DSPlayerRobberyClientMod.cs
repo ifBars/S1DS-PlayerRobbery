@@ -5,14 +5,27 @@ using System.Text;
 using DedicatedServerMod.API;
 using DedicatedServerMod.API.Metadata;
 using DedicatedServerMod.Shared.Networking;
+#if IL2CPP
+using Il2CppInterop.Runtime.Attributes;
+using Il2CppInterop.Runtime.Injection;
+#endif
 using MelonLoader;
 using Newtonsoft.Json;
+#if IL2CPP
+using Il2CppScheduleOne;
+using Il2CppScheduleOne.DevUtilities;
+using Il2CppScheduleOne.Interaction;
+using Il2CppScheduleOne.ItemFramework;
+using Il2CppScheduleOne.Persistence;
+using Il2CppScheduleOne.PlayerScripts;
+#else
 using ScheduleOne;
 using ScheduleOne.DevUtilities;
 using ScheduleOne.Interaction;
 using ScheduleOne.ItemFramework;
 using ScheduleOne.Persistence;
 using ScheduleOne.PlayerScripts;
+#endif
 using UnityEngine;
 
 [assembly: MelonInfo(typeof(S1DSMod.PlayerRobbery.S1DSPlayerRobberyClientMod), S1DSMod.PlayerRobbery.AddonMetadata.ModName, S1DSMod.PlayerRobbery.AddonMetadata.Version, S1DSMod.PlayerRobbery.AddonMetadata.Author)]
@@ -57,8 +70,8 @@ namespace S1DSMod.PlayerRobbery
         {
             if (hooksInstalled)
             {
-                Player.onPlayerSpawned -= HandlePlayerSpawned;
-                Player.onPlayerDespawned -= HandlePlayerDespawned;
+                Player.onPlayerSpawned -= new Action<Player>(HandlePlayerSpawned);
+                Player.onPlayerDespawned -= new Action<Player>(HandlePlayerDespawned);
                 hooksInstalled = false;
             }
 
@@ -144,8 +157,8 @@ namespace S1DSMod.PlayerRobbery
                 return;
             }
 
-            Player.onPlayerSpawned += HandlePlayerSpawned;
-            Player.onPlayerDespawned += HandlePlayerDespawned;
+            Player.onPlayerSpawned += new Action<Player>(HandlePlayerSpawned);
+            Player.onPlayerDespawned += new Action<Player>(HandlePlayerDespawned);
             hooksInstalled = true;
         }
 
@@ -176,10 +189,9 @@ namespace S1DSMod.PlayerRobbery
 
         private void RebuildPlayerInteractables()
         {
-            List<Player> players = new List<Player>(Player.PlayerList);
-            for (int i = 0; i < players.Count; i++)
+            for (int i = 0; i < Player.PlayerList.Count; i++)
             {
-                AttachInteractable(players[i]);
+                AttachInteractable(Player.PlayerList[i]);
             }
 
             RefreshInteractables();
@@ -436,6 +448,9 @@ namespace S1DSMod.PlayerRobbery
             return player != null ? player.PlayerCode ?? string.Empty : string.Empty;
         }
 
+#if IL2CPP
+        [RegisterTypeInIl2Cpp]
+#endif
         private sealed class RobberyTargetInteractable : InteractableObject
         {
             private const string InteractionObjectName = "Pickpocket Interaction";
@@ -444,6 +459,16 @@ namespace S1DSMod.PlayerRobbery
             private Player target;
             private SphereCollider interactionCollider;
 
+#if IL2CPP
+            public RobberyTargetInteractable(IntPtr ptr)
+                : base(ptr)
+            {
+            }
+#endif
+
+#if IL2CPP
+            [HideFromIl2Cpp]
+#endif
             public static RobberyTargetInteractable GetOrCreate(S1DSPlayerRobberyClientMod mod, Player player)
             {
                 if (player == null)
@@ -483,6 +508,9 @@ namespace S1DSMod.PlayerRobbery
                 return interactable;
             }
 
+#if IL2CPP
+            [HideFromIl2Cpp]
+#endif
             public void Initialize(S1DSPlayerRobberyClientMod mod, Player player)
             {
                 owner = mod;
@@ -499,6 +527,9 @@ namespace S1DSMod.PlayerRobbery
                 AngleLimit = 90f;
             }
 
+#if IL2CPP
+            [HideFromIl2Cpp]
+#endif
             public void SetAvailable(bool available)
             {
                 UpdatePlacement();

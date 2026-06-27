@@ -2,6 +2,17 @@
 using System;
 using System.Collections.Generic;
 using MelonLoader;
+#if IL2CPP
+using Il2CppScheduleOne;
+using Il2CppScheduleOne.DevUtilities;
+using Il2CppScheduleOne.ItemFramework;
+using Il2CppScheduleOne.Levelling;
+using Il2CppScheduleOne.Persistence;
+using Il2CppScheduleOne.PlayerScripts;
+using Il2CppScheduleOne.UI;
+using Il2CppScheduleOne.UI.Items;
+using Il2CppScheduleOne.Vision;
+#else
 using ScheduleOne;
 using ScheduleOne.DevUtilities;
 using ScheduleOne.ItemFramework;
@@ -11,6 +22,7 @@ using ScheduleOne.PlayerScripts;
 using ScheduleOne.UI;
 using ScheduleOne.UI.Items;
 using ScheduleOne.Vision;
+#endif
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -470,7 +482,11 @@ namespace S1DSMod.PlayerRobbery
                     position = GameInput.MousePosition
                 };
 
+#if IL2CPP
+                Il2CppSystem.Collections.Generic.List<RaycastResult> results = new Il2CppSystem.Collections.Generic.List<RaycastResult>();
+#else
                 List<RaycastResult> results = new List<RaycastResult>();
+#endif
                 raycaster.Raycast(pointerEventData, results);
                 for (int i = 0; i < results.Count; i++)
                 {

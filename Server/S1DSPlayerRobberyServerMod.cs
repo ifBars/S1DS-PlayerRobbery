@@ -6,11 +6,20 @@ using DedicatedServerMod.API;
 using DedicatedServerMod.API.Metadata;
 using DedicatedServerMod.Server.Player;
 using DedicatedServerMod.Shared.Networking;
+#if IL2CPP
+using Il2CppFishNet.Connection;
+#else
 using FishNet.Connection;
+#endif
 using MelonLoader;
 using Newtonsoft.Json;
+#if IL2CPP
+using Il2CppScheduleOne.ItemFramework;
+using Il2CppScheduleOne.PlayerScripts;
+#else
 using ScheduleOne.ItemFramework;
 using ScheduleOne.PlayerScripts;
+#endif
 using UnityEngine;
 
 [assembly: MelonInfo(typeof(S1DSMod.PlayerRobbery.S1DSPlayerRobberyServerMod), S1DSMod.PlayerRobbery.AddonMetadata.ModName, S1DSMod.PlayerRobbery.AddonMetadata.Version, S1DSMod.PlayerRobbery.AddonMetadata.Author)]
@@ -468,7 +477,11 @@ namespace S1DSMod.PlayerRobbery
                 sourceSlot.ChangeQuantity(-quantity);
             }
 
+#if IL2CPP
+            Il2CppSystem.Collections.Generic.List<ItemSlot> destinationHotbar = new Il2CppSystem.Collections.Generic.List<ItemSlot>(LootableSlotCount);
+#else
             List<ItemSlot> destinationHotbar = new List<ItemSlot>(LootableSlotCount);
+#endif
             for (int i = 0; i < LootableSlotCount; i++)
             {
                 destinationHotbar.Add(destinationSlots[i]);

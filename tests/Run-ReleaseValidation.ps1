@@ -35,4 +35,12 @@ Invoke-Step "Mono client build" {
     dotnet build $projectPath -c Mono_Client -p:AutomateLocalDeployment=false
 }
 
+Invoke-Step "IL2CPP server build" {
+    dotnet build $projectPath -c Il2cpp_Server -p:AutomateLocalDeployment=false
+}
+
+Invoke-Step "IL2CPP client build" {
+    dotnet build $projectPath -c Il2cpp_Client -p:AutomateLocalDeployment=false
+}
+
 Write-Host "Release validation passed."

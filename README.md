@@ -16,9 +16,11 @@ A paired client/server addon for Schedule I dedicated servers that lets players 
 ```bash
 dotnet build S1DS-PlayerRobbery.csproj -c Mono_Client
 dotnet build S1DS-PlayerRobbery.csproj -c Mono_Server
+dotnet build S1DS-PlayerRobbery.csproj -c Il2cpp_Client
+dotnet build S1DS-PlayerRobbery.csproj -c Il2cpp_Server
 ```
 
-Build output lands in `bin/Mono_Client/netstandard2.1/` and `bin/Mono_Server/netstandard2.1/`. If deployment paths are configured, the DLL is also copied to the matching `Mods` folder.
+Build output lands in `bin/<Configuration>/<TargetFramework>/`. If deployment paths are configured, the DLL is also copied to the matching `Mods` folder.
 
 ## Test
 
@@ -55,6 +57,6 @@ When this project is kept next to the `DedicatedServerMod` checkout under the Sc
 ## Notes
 
 - This is a companion addon: the server assembly declares the required client companion metadata.
-- The addon currently targets Mono client/server builds.
+- The addon supports Mono and IL2CPP client/server builds.
 - Robbery transfer is server-authoritative; the client only presents interaction and inventory UI.
 - `local.build.props`, `bin/`, `obj/`, and IDE files are intentionally ignored.

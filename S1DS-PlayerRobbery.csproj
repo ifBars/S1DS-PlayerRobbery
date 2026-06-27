@@ -10,10 +10,16 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <AssemblyName>S1DS-PlayerRobbery</AssemblyName>
     <RootNamespace>S1DSMod.PlayerRobbery</RootNamespace>
-    <Configurations>Mono_Client;Mono_Server</Configurations>
+    <Configurations>Mono_Client;Mono_Server;Il2cpp_Client;Il2cpp_Server</Configurations>
     <S1DSApiPath Condition="'$(S1DSApiPath)' == ''">..\..\DedicatedServerMod\bin</S1DSApiPath>
     <MonoClientGamePath Condition="'$(MonoClientGamePath)' == ''">$(MonoGamePath)</MonoClientGamePath>
     <MonoServerGamePath Condition="'$(MonoServerGamePath)' == ''">$(MonoGamePath)</MonoServerGamePath>
+    <Il2cppClientGamePath Condition="'$(Il2cppClientGamePath)' == ''">$(Il2CppGamePath)</Il2cppClientGamePath>
+    <Il2cppServerGamePath Condition="'$(Il2cppServerGamePath)' == ''">$(Il2CppGamePath)</Il2cppServerGamePath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Il2cpp_Client' Or '$(Configuration)'=='Il2cpp_Server'">
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Mono_Client'">
@@ -38,6 +44,30 @@
     <DeploymentPath Condition="'$(ServerDeploymentPath)' != ''">$(ServerDeploymentPath)</DeploymentPath>
     <DeploymentPath Condition="'$(ServerDeploymentPath)' == ''">$(ModsPath)</DeploymentPath>
     <S1DSReferencePath>$(S1DSApiPath)\Mono_Server\netstandard2.1</S1DSReferencePath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Il2cpp_Client'">
+    <GamePath>$(Il2cppClientGamePath)</GamePath>
+    <ManagedPath>$([System.IO.Path]::Combine('$(GamePath)', 'MelonLoader', 'Il2CppAssemblies'))</ManagedPath>
+    <MelonLoaderPath>$([System.IO.Path]::Combine('$(GamePath)', 'MelonLoader', 'net6'))</MelonLoaderPath>
+    <ModsPath>$([System.IO.Path]::Combine('$(GamePath)', 'Mods'))</ModsPath>
+    <DefineConstants>IL2CPP;CLIENT</DefineConstants>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <DeploymentPath Condition="'$(ClientDeploymentPath)' != ''">$(ClientDeploymentPath)</DeploymentPath>
+    <DeploymentPath Condition="'$(ClientDeploymentPath)' == ''">$(ModsPath)</DeploymentPath>
+    <S1DSReferencePath>$(S1DSApiPath)\Il2cpp_Client\net6.0</S1DSReferencePath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Il2cpp_Server'">
+    <GamePath>$(Il2cppServerGamePath)</GamePath>
+    <ManagedPath>$([System.IO.Path]::Combine('$(GamePath)', 'MelonLoader', 'Il2CppAssemblies'))</ManagedPath>
+    <MelonLoaderPath>$([System.IO.Path]::Combine('$(GamePath)', 'MelonLoader', 'net6'))</MelonLoaderPath>
+    <ModsPath>$([System.IO.Path]::Combine('$(GamePath)', 'Mods'))</ModsPath>
+    <DefineConstants>IL2CPP;SERVER</DefineConstants>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <DeploymentPath Condition="'$(ServerDeploymentPath)' != ''">$(ServerDeploymentPath)</DeploymentPath>
+    <DeploymentPath Condition="'$(ServerDeploymentPath)' == ''">$(ModsPath)</DeploymentPath>
+    <S1DSReferencePath>$(S1DSApiPath)\Il2cpp_Server\net6.0</S1DSReferencePath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -90,6 +120,53 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup Condition="'$(Configuration)'=='Il2cpp_Client'">
+    <Compile Include="Client\S1DSPlayerRobberyClientMod.cs" />
+    <Compile Include="Client\S1DSPlayerRobberyClientMod.PickpocketUi.cs" />
+    <Reference Include="MelonLoader">
+      <HintPath>$(MelonLoaderPath)\MelonLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(MelonLoaderPath)\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppInterop.Runtime">
+      <HintPath>$(MelonLoaderPath)\Il2CppInterop.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>$(ManagedPath)\Il2Cppmscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(ManagedPath)\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppScheduleOne.Core">
+      <HintPath>$(ManagedPath)\Il2CppScheduleOne.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DedicatedServerMod_Il2cpp_Client">
+      <HintPath>$(S1DSReferencePath)\DedicatedServerMod_Il2cpp_Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppFishNet.Runtime">
+      <HintPath>$(ManagedPath)\Il2CppFishNet.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ManagedPath)\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(ManagedPath)\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>$(ManagedPath)\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(ManagedPath)\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(ManagedPath)\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>$(ManagedPath)\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
   <ItemGroup Condition="'$(Configuration)'=='Mono_Server'">
     <Compile Include="Server\S1DSPlayerRobberyServerMod.cs" />
     <Reference Include="MelonLoader">
@@ -106,6 +183,37 @@
     </Reference>
     <Reference Include="FishNet.Runtime">
       <HintPath>$(ManagedPath)\FishNet.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ManagedPath)\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Il2cpp_Server'">
+    <Compile Include="Server\S1DSPlayerRobberyServerMod.cs" />
+    <Reference Include="MelonLoader">
+      <HintPath>$(MelonLoaderPath)\MelonLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(MelonLoaderPath)\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppInterop.Runtime">
+      <HintPath>$(MelonLoaderPath)\Il2CppInterop.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>$(ManagedPath)\Il2Cppmscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(ManagedPath)\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppScheduleOne.Core">
+      <HintPath>$(ManagedPath)\Il2CppScheduleOne.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DedicatedServerMod_Il2cpp_Server">
+      <HintPath>$(S1DSReferencePath)\DedicatedServerMod_Il2cpp_Server.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppFishNet.Runtime">
+      <HintPath>$(ManagedPath)\Il2CppFishNet.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(ManagedPath)\UnityEngine.CoreModule.dll</HintPath>
